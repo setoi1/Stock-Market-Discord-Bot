@@ -1,12 +1,24 @@
-const Discord = require('discord.js');
-const client = new Discord.Client({ TOKEN: process.env.DISCORD_TOKEN });
 require('dotenv').config();
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const guild = new Discord.Guild();
+const guildMember = new Discord.GuildMember();
 
 const TOKEN = process.env.DISCORD_TOKEN;
 const PREFIX = process.env.PREFIX;
 
-client.on('ready', () => {
+client.once('ready', () => {
     console.log('Connected as ' + client.user.tag);
+
+});
+
+client.on('message', message => {
+
+    if (message.content === `${PREFIX}test`) {
+
+        message.reply(`${client.user.tag} is online.`);
+
+    }
 
 });
 
@@ -14,11 +26,12 @@ client.on('message', message => {
 
     if (message.content === `${PREFIX}statbot`) {
 
-        message.reply('"-help statbot" for additional commands');
+        message.reply('"-help statbot" for additional commands.');
 
     }
 
 });
+
 
 client.on('message', message => {
 
@@ -32,9 +45,11 @@ client.on('message', message => {
 
 client.on('message', message => {
 
-    if (message.content === `${PREFIX}boston`) {
+    if (message.content === `${PREFIX}helper`) {
 
-        message.reply(' league?');
+        //console.log(`${client.user.avatarURL}`);
+
+        message.reply(`${client.user.avatarURL} league?`);
 
     }
 
