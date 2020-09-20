@@ -6,13 +6,14 @@
   "dependencies": {
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
     "twisted": "^1.28.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js"
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,6 @@
   "bugs": {
     "url": "https://github.com/setoi1/Stat-Bot/issues"
   },
-  "homepage": "https://github.com/setoi1/Stat-Bot#readme"
+  "homepage": "https://github.com/setoi1/Stat-Bot#readme",
+  "keywords": []
 }
