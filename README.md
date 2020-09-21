@@ -17,6 +17,6 @@ A simple discord bot that can pull user stats using commands and APIs.
 * -serverinfo
 * -avatar
 * -boston
-* -league [username]
+* -opgg [username]
 * -CODMultiplayer [battlenet|activision] [username] [tag]
 * -CODWarzone [battlenet|activision] [username] [tag]
