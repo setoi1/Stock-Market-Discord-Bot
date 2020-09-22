@@ -55,7 +55,7 @@ client.on('message', message => {
 
         if (command.usage) {
 
-            reply += `\nUsage: \`${prefix}${command.name} ${command.usage}\``;
+            reply = `\nUsage: \`${prefix}${command.name} ${command.usage}\``;
 
         }
 

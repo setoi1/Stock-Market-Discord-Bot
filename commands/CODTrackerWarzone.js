@@ -8,8 +8,6 @@ module.exports = {
 
     execute(message, args) {
 
-        if (!args.length) { return message.reply('Usage: -CODWarzone activision [username] [tag]'); }
-
         if (args[0] === 'battlenet') {
 
             if (args[1] === undefined || args[2] === undefined) return message.reply('Usage: -CODWarzone battlenet [username] [tag]');
