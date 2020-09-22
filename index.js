@@ -7,6 +7,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 
+
 const prefix = config.prefix;
 
 // Returns an array of all files in the commands folder and filters out non-JS files
@@ -93,8 +94,16 @@ client.on('message', message => {
 // Chat logger
 client.on('message', message => {
 
-    console.log(`${message.author.tag}: ${message.content}`);
+    if (message.guild) {
 
-    console.log(`message.length: ${message.content.length}`);
+        console.log(`${message.author.tag}[Server]: ${message.content}`);
+
+    }
+
+    if (message.guild === null) {
+
+        console.log(`${message.author.tag}[Direct Message]: ${message.content}`);
+
+    }
 
 });
