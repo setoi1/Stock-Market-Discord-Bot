@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
+const config = require('./config.json');
 const fs = require('fs');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+
+const prefix = config.prefix;
 
 // Returns an array of all files in the commands folder and filters out non-JS files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -16,10 +19,7 @@ for (const file of commandFiles) {
 
 }
 
-const token = process.env.DISCORD_TOKEN;
-const prefix = process.env.PREFIX;
-
-client.login(token);
+client.login(client.token);
 
 // READY
 client.once('ready', () => {
@@ -57,7 +57,7 @@ client.on('message', message => {
 });
 
 // Test command
-/* client.on('message', message => {
+ client.on('message', message => {
 
     if (message.content === `${prefix}test`) {
 
@@ -65,7 +65,7 @@ client.on('message', message => {
 
     }
 
-});*/
+});
 
 // Chat logger
 client.on('message', message => {
