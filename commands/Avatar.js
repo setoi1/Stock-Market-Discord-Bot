@@ -2,6 +2,7 @@ module.exports = {
 
     name: 'avatar',
     description: 'random avatar',
+    guildOnly: true,
 
     execute(message) {
 

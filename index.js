@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+const cooldowns = new Discord.Collection();
 
 const prefix = config.prefix;
 
@@ -36,13 +37,35 @@ client.on('message', message => {
     // Slices the actual content of the message, trims the white space, and splits the string into a list
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     // Shift the command message to lowercase
-	const command = args.shift().toLowerCase();
+	const commandName = args.shift().toLowerCase();
 
-    if (!client.commands.has(command)) return;
+    if (!client.commands.has(commandName)) return;
+
+    const command = client.commands.get(commandName);
+
+    if (command.guildOnly && message.channel.type === 'dm') {
+
+        return message.reply('Dont try any of that shit boi');
+
+    }
+
+    if (command.args && !args.length) {
+
+        let reply = `No arguments were provided, ${message.author}`;
+
+        if (command.usage) {
+
+            reply += `\nUsage: \`${prefix}${command.name} ${command.usage}\``;
+
+        }
+
+        return message.channel.send(reply);
+
+    }
 
 	try {
 
-        client.commands.get(command).execute(message, args);
+        client.commands.get(commandName).execute(message, args);
 
     }
 
@@ -57,7 +80,7 @@ client.on('message', message => {
 });
 
 // Test command
- client.on('message', message => {
+client.on('message', message => {
 
     if (message.content === `${prefix}test`) {
 

@@ -2,6 +2,9 @@ module.exports = {
 
     name: 'codmultiplayer',
     description: 'Pulls COD Tracker link from given username and tag',
+    usage: '<account type> <username> <tag>',
+    args: true,
+    guildOnly: true,
 
     execute(message, args) {
 

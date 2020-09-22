@@ -2,6 +2,7 @@ module.exports = {
 
     name: 'boston',
     description: 'league',
+    guildOnly: true,
 
     execute(message) {
 

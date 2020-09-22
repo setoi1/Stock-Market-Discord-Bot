@@ -2,6 +2,7 @@ module.exports = {
 
     name: 'serverinfo',
     description: 'Displays league information from op.gg',
+    guildOnly: true,
 
     execute(message) {
 
