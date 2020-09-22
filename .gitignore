@@ -102,3 +102,15 @@ dist
 
 # TernJS port file
 .tern-port
+
+# True Config file
+
+config.json
+
+# Linter file
+
+.eslintrc.json
+
+# Proc file
+
+procfile
