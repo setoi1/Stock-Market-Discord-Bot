@@ -7,7 +7,6 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 
-
 const prefix = config.prefix;
 
 // Returns an array of all files in the commands folder and filters out non-JS files
@@ -105,5 +104,19 @@ client.on('message', message => {
         console.log(`${message.author.tag}[Direct Message]: ${message.content}`);
 
     }
+
+});
+
+// Logs when a user joins the server
+client.on('guildMemberAdd', () => {
+
+    console.log('A user joined the server');
+
+});
+
+// Logs when a user leaves the server
+client.on('guildMemberRemove', () => {
+
+    console.log('A user was kicked, banned, or left the server');
 
 });
