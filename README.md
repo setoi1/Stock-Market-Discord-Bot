@@ -2,13 +2,11 @@
 
 ## Description
 
-A simple discord bot that can pull user stats using commands and APIs.
+A simple discord bot with various functions built in for users
 
 ## Features
 
 * Random Commands
-* League of Legends Profile Information and Stats
-* Warzone Profile Information and Stats
 
 ## Commands
 
