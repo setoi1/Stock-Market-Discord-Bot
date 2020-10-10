@@ -7,8 +7,6 @@ A simple discord bot with various functions built in for users
 ## Features
 
 * Random Commands
-* League of Legends Profile Information and Stats
-* Warzone Profile Information and Stats
 
 ## Commands
 
