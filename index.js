@@ -76,7 +76,7 @@ client.on('message', async message => {
 
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
-    const cooldownTime = (command.cooldown || 5) * 1000;
+    const cooldownTime = (command.cooldown || 10) * 1000;
 
     if (timestamps.has(message.author.id)) {
 

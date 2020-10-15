@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-const embed = new Discord.MessageEmbed();
 const fetch = require('node-fetch');
 
 module.exports = {
