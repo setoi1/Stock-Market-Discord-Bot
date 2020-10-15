@@ -1,15 +1,13 @@
 const Discord = require('discord.js');
 const config = require('./config.json');
 const fs = require('fs');
-require('dotenv').config();
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
-
+const token = config.token;
 const prefix = config.prefix;
 
-// Returns an array of all files in the commands folder and filters out non-JS files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -20,23 +18,19 @@ for (const file of commandFiles) {
 
 }
 
-client.login(client.token);
+client.login(token);
 
-// READY
 client.once('ready', () => {
 
     console.log('Connected as ' + client.user.tag);
 
 });
 
-client.on('message', message => {
+client.on('message', async message => {
 
-    // Message has to start with the - prefix and can't be sent by a bot
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    // Slices the actual content of the message, trims the white space, and splits the string into a list
     const args = message.content.slice(prefix.length).trim().split(/ +/);
-    // Shift the command message to lowercase
 	const commandName = args.shift().toLowerCase();
 
     if (!client.commands.has(commandName)) return;
@@ -63,6 +57,34 @@ client.on('message', message => {
 
     }
 
+    if (!cooldowns.has(command.name)) {
+
+        cooldowns.set(command.name, new Discord.Collection());
+
+    }
+
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownTime = (command.cooldown || 0) * 1000;
+
+    if (timestamps.has(message.author.id)) {
+
+        const expirationTime = timestamps.get(message.author.id) + cooldownTime;
+
+        if (now < expirationTime) {
+
+            const timeLeft = (expirationTime - now) / 1000;
+
+            return message.reply(`Please wait ${timeLeft.toFixed(1)} more seconds to use the \`${command.name}\` command.`);
+
+        }
+
+    }
+
+    timestamps.set(message.author.id, now);
+
+    setTimeout(() => timestamps.delete(message.author.id), cooldownTime);
+
 	try {
 
         client.commands.get(commandName).execute(message, args);
@@ -79,10 +101,9 @@ client.on('message', message => {
 
 });
 
-// Test command
 client.on('message', message => {
 
-    if (message.content === `${prefix}test`) {
+    if (message.content === `${prefix}tester`) {
 
         message.reply(`${client.user.tag} is online.`);
 
