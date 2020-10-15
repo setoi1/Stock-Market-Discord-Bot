@@ -26,6 +26,17 @@ client.once('ready', () => {
 
 });
 
+// Test
+client.on('message', message => {
+
+    if (message.content === `${prefix}test`) {
+
+        message.reply(`${client.user.tag} is online.`);
+
+    }
+
+});
+
 client.on('message', async message => {
 
     if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -65,7 +76,7 @@ client.on('message', async message => {
 
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
-    const cooldownTime = (command.cooldown || 0) * 1000;
+    const cooldownTime = (command.cooldown || 5) * 1000;
 
     if (timestamps.has(message.author.id)) {
 
@@ -101,16 +112,6 @@ client.on('message', async message => {
 
 });
 
-client.on('message', message => {
-
-    if (message.content === `${prefix}tester`) {
-
-        message.reply(`${client.user.tag} is online.`);
-
-    }
-
-});
-
 // Chat logger
 client.on('message', message => {
 
@@ -136,7 +137,9 @@ client.on('guildMemberAdd', () => {
 });
 
 // Logs when a user leaves the server
-client.on('guildMemberRemove', () => {
+client.on('guildMemberRemove', message => {
+
+    message.channel.send('A user was kicked, banned, or left the server');
 
     console.log('A user was kicked, banned, or left the server');
 

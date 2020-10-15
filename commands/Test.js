@@ -1,9 +1,9 @@
-/*const Discord = require('discord.js');
+const Discord = require('discord.js');
 const client = new Discord.Client();
 
 module.exports = {
 
-    name: 'test',
+    name: '234u239u4honk',
     description: 'Checks if the bot is online or not',
     guildOnly: true,
 
@@ -13,4 +13,4 @@ module.exports = {
 
     },
 
-};*/
+};

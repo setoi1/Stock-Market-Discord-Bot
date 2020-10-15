@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+const embed = new Discord.MessageEmbed();
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -14,7 +16,7 @@ module.exports = {
         const state = args[1];
         const countryCode = args[2];
 
-        if (args[0] === undefined || args[1] === undefined) return message.reply('Missing arguments');
+        if (args[0] === undefined || args[1] === undefined) return message.reply('Usage: -weather <location> <state initials> <country code>');
 
         try {
 
@@ -26,15 +28,13 @@ module.exports = {
             const convertedTempF = Math.round(((mainTemp - 273.15) * 1.8) + 32);
             const convertedTempC = Math.round(mainTemp - 273.15);
 
-            message.channel.send(`Location: ${name}`);
-            message.channel.send(`Fahrenheit: ${convertedTempF}°`);
-            message.channel.send(`Celsius: ${convertedTempC}°`);
-            message.channel.send(`Conditions: ${conditions}`);
-            message.channel.send(`Humidity: ${humidity}%`);
+            message.channel.send(`Location: ${name}\nFahrenheit: ${convertedTempF}°\nCelsius: ${convertedTempC}°\nConditions: ${conditions}\nHumidity: ${humidity}%`);
 
         }
 
         catch {
+
+            message.reply('Location does not exist');
 
             console.log('Promise Rejected');
 
