@@ -1,4 +1,4 @@
-# Stat-Bot
+# Discord-Bot
 
 ## Description
 
