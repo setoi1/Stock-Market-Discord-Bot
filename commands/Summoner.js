@@ -22,44 +22,42 @@ module.exports = {
             console.log('First fetch completed');
             console.log(`Summoner ID: ${id}\nAccount ID: ${accountId}`);
 
-            const [ { rank, tier, leaguePoints, wins, losses } ] = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${RIOTAPIKEY}`).then(response => response.json());
+            const [ { queueType, rank, tier, leaguePoints, wins, losses } ] = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${RIOTAPIKEY}`).then(response => response.json());
             console.log('Second fetch completed');
 
-            console.log(typeof rank);
+            let winRatio = 100 * (wins / (wins + losses));
+            winRatio = winRatio.toFixed(0);
 
-            if (rank === 'undefined') {
-                console.log(`Summoner Name: ${name}\nSummoner ID: ${id}\nAcccount ID: ${accountId}\nRank: Unranked`);
+            console.log(`Summoner Name: ${name}\nSummoner ID: ${id}\nAcccount ID: ${accountId}\n ${queueType} Rank: ${tier} ${rank} ${leaguePoints} LP\nWin Rate: ${wins} / ${losses} | ${winRatio}`);
 
-                const embed1 = new Discord.MessageEmbed()
+            if (queueType === 'RANKED_SOLO_5x5') {
+
+                const embed = new Discord.MessageEmbed()
                 .setColor(0x00AE86)
-                .setAuthor('Bot', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
-                .setTitle(`${name}`)
-                .setDescription(`${name}'s Ranked Profile`)
+                .setAuthor('Chineser', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
+                .setTitle('Player Profile')
                 .addFields({ name: 'Summoner Name', value: `${name}` })
-                .addFields({ name: 'Solo Queue Rank', value: 'Unranked' });
-
-                console.log('Runs in if');
-
-                message.channel.send(embed1);
-            }
-            else {
-                let winRatio = 100 * (wins / (wins + losses));
-                winRatio = winRatio.toFixed(2);
-                console.log(`Summoner Name: ${name}\nSummoner ID: ${id}\nAcccount ID: ${accountId}\nRank: ${tier} ${rank} ${leaguePoints} LP\nWin Rate: ${wins} / ${losses} | ${winRatio}`);
-
-                const embed2 = new Discord.MessageEmbed()
-                .setColor(0x00AE86)
-                .setAuthor('Bot', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
-                .setTitle(`${name}`)
-                .setDescription('Ranked Profile')
-                .addFields({ name: 'Summoner Name', value: `${name}` })
-                .addFields({ name: 'Solo Queue Rank', value: `${tier} ${rank} ${leaguePoints} LP` })
+                .addFields({ name: 'Ranked Solo / Duo', value: `${tier} ${rank} ${leaguePoints} LP` })
                 .addFields({ name: 'Win / Loss Ratio', value: `${wins}W / ${losses}L | ${winRatio}%` });
 
-                console.log('Runs in else');
+                message.channel.send(embed);
 
-                message.channel.send(embed2);
             }
+
+            else if (queueType === 'RANKED_FLEX_SR') {
+
+                const embed = new Discord.MessageEmbed()
+                .setColor(0x00AE86)
+                .setAuthor('Chineser', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
+                .setTitle('Player Profile')
+                .addFields({ name: 'Summoner Name', value: `${name}` })
+                .addFields({ name: 'Ranked Flex 5V5', value: `${tier} ${rank} ${leaguePoints} LP` })
+                .addFields({ name: 'Win / Loss Ratio', value: `${wins}W / ${losses}L | ${winRatio}%` });
+
+                message.channel.send(embed);
+
+            }
+
 
         }
 
@@ -67,7 +65,7 @@ module.exports = {
 
             console.error(error);
 
-            message.reply('Summoner does not exist or is not ranked.');
+            message.reply('Summoner is not ranked or does not exist.');
 
         }
 
