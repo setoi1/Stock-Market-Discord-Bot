@@ -1,4 +1,6 @@
+const Discord = require('discord.js');
 const fetch = require('node-fetch');
+const { WEATHERAPIKEY } = require('../config.json');
 
 module.exports = {
 
@@ -18,7 +20,7 @@ module.exports = {
 
         try {
 
-            const { weather, main, name } = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${countryCode}&appid=cae62c04ff9ff9d30eb282663f9cfe8f`).then(response => response.json());
+            const { weather, main, name } = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${countryCode}&appid=${WEATHERAPIKEY}`).then(response => response.json());
 
             const condition = weather[0].main;
             const mainTemp = main.temp;
@@ -26,15 +28,27 @@ module.exports = {
             const convertedTempF = Math.round(((mainTemp - 273.15) * 1.8) + 32);
             const convertedTempC = Math.round(mainTemp - 273.15);
 
-            message.channel.send(`Location: ${name}\nFahrenheit: ${convertedTempF}°\nCelsius: ${convertedTempC}°\nCondition: ${condition}\nHumidity: ${humidity}%`);
+            const toUpperState = state.toUpperCase();
+
+            const embed = new Discord.MessageEmbed()
+            .setColor(0x00AE86)
+            .setAuthor('Jason', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
+            .setTitle('Location')
+            .setDescription(`${name}, ${toUpperState}`)
+            .addFields({ name: 'Fahrenheit', value: `${convertedTempF}°` })
+            .addFields({ name: 'Celsius', value: `${convertedTempC}°` })
+            .addFields({ name: 'Condition', value: `${condition}` })
+            .addFields({ name: 'Humidity', value: `${humidity}%` });
+
+            message.channel.send(embed);
 
         }
 
-        catch {
+        catch (error) {
+
+            console.log(error);
 
             message.reply('Location does not exist');
-
-            console.log('Promise Rejected');
 
         }
 
