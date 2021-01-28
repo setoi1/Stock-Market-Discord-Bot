@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const config = require('../config.json');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
         const state = args[1];
         const countryCode = args[2];
 
-        const weatherAPIKey = process.env.WEATHERAPIKEY;
+        const weatherAPIKey = config.WEATHERAPIKEY;
 
         if (args[0] === undefined || args[1] === undefined) return message.reply('Usage: -weather <location> <state initials> <country code>');
 
