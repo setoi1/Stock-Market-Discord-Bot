@@ -2,21 +2,23 @@ const ytdl = require('ytdl-core');
 
 module.exports = {
 
-    name: 'tire',
-    description: 'Im a tire',
-    usage: 'tire',
+    name: 'die',
+    description: 'im dead',
+    usage: 'die',
     guildOnly: true,
 
     async execute(message) {
 
         if (!message.guild) return;
 
-        if (message.content === '-tire') {
+        if (message.content === '-die') {
 
             if (message.member.voice.channel) {
-                const connection = await message.member.voice.channel.join();
-                connection.play(ytdl('https://www.youtube.com/watch?v=c1sAnP0PFC0', { filter: 'audioonly' }));
+                let connection = await message.member.voice.channel.join();
+                connection.play('./mp4files/OOF.mp3', { volume: 1.0 });
+                setTimeout(() => { connection = message.member.voice.channel.leave(); }, 4000);
             }
+
             else {
                 message.reply('You need to be in the voice channel for this command to work');
             }

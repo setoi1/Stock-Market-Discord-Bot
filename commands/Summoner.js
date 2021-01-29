@@ -29,8 +29,6 @@ module.exports = {
 
                 console.log(NAResponse);
 
-                // console.log(`Summoner Name: ${name}\nSummoner ID: ${id}\nAcccount ID: ${accountId}\n ${queueType} Rank: ${tier} ${rank} ${leaguePoints} LP\nWin Rate: ${wins} / ${losses} | ${winRatio}`);
-
                 if (NAResponse === undefined || NAResponse.length == 0) {
                     const embed = new Discord.MessageEmbed()
                     .setColor(0x00AE86)
