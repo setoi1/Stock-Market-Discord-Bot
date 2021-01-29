@@ -18,7 +18,7 @@ module.exports = {
 
         try {
 
-            const { accountId, name, id } = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${inName}?api_key=${RIOTAPIKEY}`).then(response => response.json());
+            const { accountId, name, id, summonerLevel } = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${inName}?api_key=${RIOTAPIKEY}`).then(response => response.json());
             console.log('First fetch completed');
 
             const NAResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${RIOTAPIKEY}`).then(response => response.json());
@@ -35,6 +35,7 @@ module.exports = {
                 .setAuthor('Chineser', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
                 .setTitle('Player Profile')
                 .addFields({ name: 'Summoner Name', value: `${name}` })
+                .addFields({ name: 'Summoner Level', value: `${summonerLevel}` })
                 .addFields({ name: 'Ranked Solo / Duo', value: 'Unranked' });
 
                 message.channel.send(embed);
@@ -66,6 +67,7 @@ module.exports = {
                     .setAuthor('Chineser', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
                     .setTitle('Player Profile')
                     .addFields({ name: 'Summoner Name', value: `${name}` })
+                    .addFields({ name: 'Summoner Level', value: `${summonerLevel}` })
                     .addFields({ name: 'Ranked Solo / Duo', value: `${tier} ${rank} ${leaguePoints} LP` })
                     .addFields({ name: 'Win / Loss Ratio', value: `${wins}W / ${losses}L | ${winRatio}%` });
 
@@ -80,6 +82,7 @@ module.exports = {
                     .setAuthor('Chineser', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
                     .setTitle('Player Profile')
                     .addFields({ name: 'Summoner Name', value: `${name}` })
+                    .addFields({ name: 'Summoner Level', value: `${summonerLevel}` })
                     .addFields({ name: 'Ranked Flex 5V5', value: `${tier} ${rank} ${leaguePoints} LP` })
                     .addFields({ name: 'Win / Loss Ratio', value: `${wins}W / ${losses}L | ${winRatio}%` });
 
