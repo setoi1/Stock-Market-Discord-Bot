@@ -4,7 +4,7 @@ const { RIOTAPIKEY } = require('../config.json');
 
 module.exports = {
 
-    name: 'summoner',
+    name: 'summonerna',
     description: 'Pulls summoner information',
     usage: '<summoner name>',
     args: true,
@@ -14,7 +14,7 @@ module.exports = {
 
         const inName = args[0];
 
-        if (args[0] === undefined) return message.reply('Usage: -summoner <summoner name>');
+        if (args[0] === undefined) return message.reply('Usage: -summonerna <summoner name>');
 
         try {
 
