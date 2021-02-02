@@ -2,12 +2,13 @@ const Discord = require('discord.js');
 const config = require('./config.json');
 const fs = require('fs');
 const ytdl = require('ytdl-core');
+const http = require('http');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
-const token = config.token;
-const prefix = config.prefix;
+const token = config.TOKEN;
+const prefix = config.PREFIX;
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -179,3 +180,12 @@ client.on('guildMemberRemove', message => {
     console.log('A user was kicked, banned, or left the server');
 
 });
+
+/*
+// Simple Locally Hosted Web Server
+const server = http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end('ok');
+});
+server.listen(3000);
+*/
