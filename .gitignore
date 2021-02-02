@@ -116,3 +116,5 @@ config.json
 procfile
 
 mp4files
+
+.vscode

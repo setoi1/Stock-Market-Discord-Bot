@@ -16,6 +16,8 @@ module.exports = {
         const ticker = args[0];
         const date = args[1];
 
+        if (ticker === undefined) return message.reply('Usage: \`-stock <ticker> <YYYY-MM-DD>\`');
+
         try {
 
             // Ticker Details
@@ -32,8 +34,26 @@ module.exports = {
 
             // console.log(tickerNews);
 
+            /*
+            // Gets Current Date
+            let currentDate = new Date();
+            const DD = String(currentDate.getDate()).padStart(2, '0');
+            const MM = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const YYYY = currentDate.getFullYear();
+
+            currentDate = YYYY + '-' + MM + '-' + DD;
+
+            console.log(currentDate);
+
+            if (date === undefined) {
+                date = currentDate;
+            }
+
+            console.log(date);
+            */
+
             // Daily Open / Close
-            const dailyOpenClose = await fetch(`https://api.polygon.io/v1/open-close/${ticker}/${date}?unadjusted=true&apiKey=${POLYGONAPIKEY}`).then(response => response.json());
+            const dailyOpenClose = await fetch(`https://api.polygon.io/v1/open-close/${ticker}/${date}?unadjusted=true&apiKey=EBhOSptZrm9llgHih0pHDC2KDSyWlaDO`).then(response => response.json());
             const { preMarket, open, low, high, close, volume, afterHours } = dailyOpenClose;
 
             console.log(dailyOpenClose);
@@ -59,12 +79,13 @@ module.exports = {
                     { name: 'Sector', value: `${sector}`, inline: true },
                 );
 
+                message.channel.send(embed);
 
-            message.channel.send(embed);
         }
 
         catch (error) {
             console.log(error);
+            message.channel.send('Make sure the company trades on the NYSE or <YYYY-MM-DD>');
         }
     },
 };
