@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
+const { RIOTAPIKEY } = require('../config.json');
 const axios = require('axios');
 const fetch = require('node-fetch');
-const { RIOTAPIKEY } = require('../config.json');
 
 module.exports = {
 
@@ -112,7 +112,6 @@ module.exports = {
                         message.channel.send(embed);
                         break;
                     case 2:
-                        
                 }
             } // end of if
     } // end of execute
