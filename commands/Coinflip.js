@@ -14,7 +14,6 @@ module.exports = {
         console.log(flip);
 
         if (flip === 1) message.reply('Heads');
-
         if (flip === 2) message.reply('Tails');
 
     },
