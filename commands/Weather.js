@@ -11,6 +11,7 @@ module.exports = {
     guildOnly: true,
 
     async execute(message, args) {
+
         const weatherAPIKey = config.WEATHERAPIKEY;
         const city = args[0];
         const state = args[1];
@@ -50,5 +51,7 @@ module.exports = {
             console.log(error);
             message.reply('Location does not exist');
         }
+
     },
+    
 };

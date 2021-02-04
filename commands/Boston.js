@@ -2,6 +2,7 @@ module.exports = {
 
     name: 'boston',
     description: 'league',
+    usage: 'tire',
     guildOnly: true,
 
     execute(message) {
@@ -9,5 +10,5 @@ module.exports = {
         message.channel.send('<@105124014111920128> league?');
 
     },
-
+    
 };
