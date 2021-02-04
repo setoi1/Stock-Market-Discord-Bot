@@ -6,7 +6,7 @@ module.exports = {
 
     execute(message) {
 
-        message.channel.send('<@485645992193163273> pemis');
+        message.channel.send('<@485645992193163273> dumbass');
 
     },
 
