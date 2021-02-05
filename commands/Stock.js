@@ -81,7 +81,7 @@ module.exports = {
             message.channel.send(embed);
         }
         catch (error) {
-            console.error('You suck');
+            console.log(error);
         } // End of Catch
 
     },
