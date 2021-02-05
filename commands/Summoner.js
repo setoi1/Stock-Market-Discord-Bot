@@ -3,11 +3,6 @@ const { RIOTAPIKEY } = require('../config.json');
 const axios = require('axios');
 const fetch = require('node-fetch');
 
-const regions = new Map([
-    ['NA', 'https://na1.api.riotgames.com/'],
-    ['EUW', 'https://euw1.api.riotgames.com/'],
-    ['KR', 'https://kr.api.riotgames.com/']
-])
 module.exports = {
 
     name: 'summoner',
@@ -18,6 +13,12 @@ module.exports = {
 
     async execute(message, args) {
 
+        const regions = new Map([
+            ['NA', 'https://na1.api.riotgames.com/'],
+            ['EUW', 'https://euw1.api.riotgames.com/'],
+            ['KR', 'https://kr.api.riotgames.com/']
+        ])
+        
         const region = args[0];
         const inputName = args[1];
 
