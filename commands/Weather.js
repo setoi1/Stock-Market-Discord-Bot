@@ -13,7 +13,6 @@ module.exports = {
 
     async execute(message, args) {
 
-        const weatherAPIKey = config.WEATHERAPIKEY;
         const city = args[0];
         const state = args[1];
         const countryCode = args[2];
