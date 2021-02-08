@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const { RIOTAPIKEY } = require('../config.json');
 const axios = require('axios');
 const fetch = require('node-fetch');
+const RIOTAPIKEY = process.env.RIOTAPIKEY;
 
 module.exports = {
 

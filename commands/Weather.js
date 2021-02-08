@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
-const config = require('../config.json');
+const axios = require('axios');
 const fetch = require('node-fetch');
+const WEATHERAPIKEY = process.env.WEATHERAPIKEY;
 
 module.exports = {
 
@@ -20,7 +21,7 @@ module.exports = {
         if (args[0] === undefined || args[1] === undefined) return message.reply('Usage: -weather <location> <state initials> <country code>');
 
         try {
-            const { weather, main, name } = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${countryCode}&appid=${weatherAPIKey}`).then(response => response.json());
+            const { weather, main, name } = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${countryCode}&appid=${WEATHERAPIKEY}`).then(response => response.json());
 
             const condition = weather[0].main;
             const mainTemp = main.temp;

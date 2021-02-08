@@ -1,6 +1,5 @@
-const { prefix } = require('../config.json');
-
 module.exports = {
+
 	name: 'helpbot',
 	description: 'List all commands or info about a specific command.',
 	aliases: ['commands'],
@@ -8,6 +7,7 @@ module.exports = {
 
     execute(message, args) {
 
+        const prefix = process.env.prefix;
         const data = [];
         const { commands } = message.client;
 

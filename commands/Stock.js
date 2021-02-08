@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const { POLYGONAPIKEY } = require('../config.json');
 const axios = require('axios');
 const fetch = require('node-fetch');
+const POLYGONAPIKEY = process.env.POLYGONAPIKEY;
 
 module.exports = {
 
