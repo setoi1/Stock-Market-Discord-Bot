@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const axios = require('axios');
 const fetch = require('node-fetch');
-const WEATHERAPIKEY = process.env.WEATHERAPIKEY;
+const { WEATHERAPIKEY } = require('../config.json');
 
 module.exports = {
 
@@ -13,6 +13,7 @@ module.exports = {
 
     async execute(message, args) {
 
+        var weather = {};
         const city = args[0];
         const state = args[1];
         const countryCode = args[2];
@@ -20,11 +21,15 @@ module.exports = {
         if (args[0] === undefined || args[1] === undefined) return message.reply('Usage: -weather <location> <state initials> <country code>');
 
         try {
-            const { weather, main, name } = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${countryCode}&appid=${WEATHERAPIKEY}`).then(response => response.json());
 
-            const condition = weather[0].main;
-            const mainTemp = main.temp;
-            const humidity = main.humidity;
+            const weatherResponse = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${countryCode}&appid=${WEATHERAPIKEY}`);
+            weather = weatherResponse.data;
+
+            console.log(WEATHERAPIKEY);
+
+            const condition = weather.main;
+            const mainTemp = weather.main.temp;
+            const humidity = weather.humidity;
             const convertedTempF = Math.round(((mainTemp - 273.15) * 1.8) + 32);
             const convertedTempC = Math.round(mainTemp - 273.15);
             const toUpperState = state.toUpperCase();
@@ -33,7 +38,7 @@ module.exports = {
                 .setColor(0x00AE86)
                 .setAuthor('Jason', 'https://i.gyazo.com/thumb/1200/c3f5dbb6c885e84ca376dce711db2c2a-png.jpg')
                 .setTitle('Current Weather')
-                .setDescription(`${name}, ${toUpperState}`)
+                .setDescription(`${city}, ${toUpperState}`)
                 .addFields(
                     { name: 'Fahrenheit', value: `${convertedTempF}°`, inline: true },
                     { name: 'Celsius', value: `${convertedTempC}°`, inline: true },
