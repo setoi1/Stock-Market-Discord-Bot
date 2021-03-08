@@ -18,7 +18,7 @@ module.exports = {
             ['EUW', 'https://euw1.api.riotgames.com/'],
             ['KR', 'https://kr.api.riotgames.com/']
         ])
-        
+
         const region = args[0];
         const inputName = args[1];
 

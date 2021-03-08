@@ -1,6 +1,6 @@
 module.exports = {
 
-	name: 'helpbot',
+	name: 'commands',
 	description: 'List all commands or info about a specific command.',
 	aliases: ['commands'],
 	usage: '[command name]',
