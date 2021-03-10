@@ -6,7 +6,7 @@ A simple discord bot that provides the ability to track certain companies and ti
 
 ## Features
 
-* Stock Market Information (NYSE)
+* Stock Market Information and Company Specific News Articles (NYSE)
 * LoL Profile Rank (NA, EUW, KR)
 * Music Player
 * Current Weather
