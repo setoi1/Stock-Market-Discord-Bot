@@ -13,25 +13,19 @@ const prefix = config.PREFIX;
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
-
 }
 
 client.login(token);
 
 client.once('ready', () => {
-
     console.log('Connected as ' + client.user.tag);
-
 });
 
 // Test
 client.on('message', message => {
-
     if (message.content === `${prefix}test`) message.reply(`${client.user.tag} is online.`);
-
 });
 
 client.on('message', async message => {
@@ -53,6 +47,7 @@ client.on('message', async message => {
         return message.channel.send(reply);
     }
 
+    // Command Cooldown
     if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
 
     const now = Date.now();
@@ -67,8 +62,8 @@ client.on('message', async message => {
         }
     }
 
+    // Command Cooldown
     timestamps.set(message.author.id, now);
-
     setTimeout(() => timestamps.delete(message.author.id), cooldownTime);
 
 	try {
@@ -83,29 +78,23 @@ client.on('message', async message => {
 
 // Chat logger
 client.on('message', message => {
-
     if (message.guild) console.log(`${message.author.tag}[Server]: ${message.content}`);
     if (message.guild === null) console.log(`${message.author.tag}[Direct Message]: ${message.content}`);
-
 });
 
 // Logs when a user joins the server
 client.on('guildMemberAdd', () => {
-
     console.log('A user joined the server');
-
 });
 
 // Logs when a user leaves the server
 client.on('guildMemberRemove', message => {
-
     message.channel.send('A user was kicked, banned, or left the server');
     console.log('A user was kicked, banned, or left the server');
-
 });
 
 /*
-// Simple Locally Hosted Web Server
+// Locally Hosted Web Server
 const server = http.createServer((req, res) => {
   res.writeHead(200);
   res.end('ok');
