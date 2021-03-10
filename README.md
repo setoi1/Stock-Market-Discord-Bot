@@ -1,4 +1,4 @@
-# Discord-Bot
+# Stock Market Discord-Bot
 
 ## Description
 
