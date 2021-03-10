@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple discord bot with various functions and commands.
+A simple discord bot that provides the ability to track certain companies and tickers within the New York Stock Exchange.
 
 ## Features
 
