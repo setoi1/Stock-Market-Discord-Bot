@@ -125,7 +125,6 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 client.on('guildMemberRemove', member => {
     let time = new Date().toLocaleTimeString();
     let user = member.user.tag;
-    console.log(`${user} is no longer in the server`);
     let logChannelID = '912908578946424893';
     let logChannel = client.channels.cache.get(logChannelID);
     logChannel.send(`[${time}] ${user} is no longer in the server`);
