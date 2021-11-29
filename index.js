@@ -96,9 +96,6 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     let oldUserChannel = oldMember.channelID;
     let newUserChannel = newMember.channelID;
 
-    console.log(`oldMember: ${oldUserChannel}`);
-    console.log(`newMember: ${newUserChannel}`);
-
     let user = newMember.member.user.tag;
 
     let logChannelID = '912908578946424893';
