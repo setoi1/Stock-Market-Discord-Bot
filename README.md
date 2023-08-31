@@ -1,13 +1,12 @@
-# Stock Market Discord-Bot
+# NYSE Market Data Visualization
 
 ## Description
 
-A discord bot that provides the ability to track certain companies and tickers within the New York Stock Exchange.
+A desktop application that looks to provide clear insights on New York Stock Exchange companies through data visualization.
 
 ## Features
 
-* Stock Market Information and Company Specific News Articles (NYSE)
-* LoL Profile Rank (NA, EUW, KR)
-* Music Player
-* Current Weather
-* Miscellaneous commands
+* Stock Market Information from the New York Stock Exchange
+* Industry News Articles and Company-Specific News Articles
+* Visualized Price Data and History
+* Search and Browse by Sector
