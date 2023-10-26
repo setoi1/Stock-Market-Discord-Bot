@@ -1,12 +1,11 @@
-# NYSE Market Data Visualization
+# Stock Market Discord Bot
 
 ## Description
 
-A desktop application that looks to provide clear insights on New York Stock Exchange companies through data visualization.
+A discord bot that displays user-requested company / ticker stock data in a readable form.
 
 ## Features
 
 * Stock Market Information from the New York Stock Exchange
 * Industry News Articles and Company-Specific News Articles
-* Visualized Price Data and History
-* Search and Browse by Sector
+* Stock-specific ticker time series data
