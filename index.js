@@ -28,7 +28,6 @@ client.on('message', message => {
 });
 
 client.on('message', async message => {
-
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -38,18 +37,18 @@ client.on('message', async message => {
 
     const command = client.commands.get(commandName);
 
-    if (command.guildOnly && message.channel.type === 'dm') return message.reply('Dont try any of that shit boi');
+    if (command.guildOnly && message.channel.type === 'dm') return message.reply('Bot does not respond to direct messages.');
 
     if (command.args && !args.length) {
         let reply = `No arguments were provided, ${message.author}`;
         if (command.usage) reply = `\nUsage: \`${prefix}${command.name} ${command.usage}\``;
         return message.channel.send(reply);
-    }
+    };
 
     // Command Cooldown
     if (!cooldowns.has(command.name)) {
         cooldowns.set(command.name, new Collection());
-    }
+    };
 
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
@@ -60,19 +59,18 @@ client.on('message', async message => {
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
             return message.reply(`Please wait ${timeLeft.toFixed(1)} more seconds to use the \`${command.name}\` command.`);
-        }
-    }
+        };
+    };
 
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownTime);
 
 	try {
         client.commands.get(commandName).execute(message, args);
-    }
-    catch (error) {
+    } catch (error) {
         console.error(error);
         message.reply('Invalid Command');
-	}
+	};
 
 });
 
@@ -86,10 +84,10 @@ client.on('message', message => {
 
     if (message.guild) {
         console.log(`[${server}][${channel}][${author}][${time}]: ${content}`);
-    } 
+    };
     if (message.guild === null) {
         console.log(`[Direct Message]${author}${time}: ${content}`);
-    }
+    };
 });
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
@@ -104,7 +102,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     let time = new Date().toLocaleTimeString();
   
     if (oldUserChannel === newUserChannel) {  // If the user's voiceStateUpdate was emitted but has not changed channel
-        return
+        return;
     };
     if (newUserChannel === '105345089626185728') { // If the user moved and their state was set to AFK
         logChannel.send(`[${time}] ${user} is now AFK`);
