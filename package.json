@@ -4,15 +4,9 @@
   "description": "A multi-functional Discord Bot",
   "main": "main.js",
   "dependencies": {
-    "@discordjs/opus": "^0.4.0",
     "axios": "^0.21.1",
     "discord.js": "^12.3.1",
-    "dotenv": "^8.2.0",
-    "ffmpeg-static": "^4.2.7",
-    "node-fetch": "^2.6.1",
-    "nodemon": "^2.0.15",
-    "twisted": "^1.28.0",
-    "ytdl-core": "^4.4.5"
+    "nodemon": "^2.0.15"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
