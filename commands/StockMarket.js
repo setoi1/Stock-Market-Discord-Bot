@@ -11,7 +11,6 @@ module.exports = {
     async execute(message, args) {
         let ticker = args[1];
         if (args[0] === undefined) return message.reply('Usage: \`!stock <ticker> <news or price> (if price) <YYYY-MM-DD>\`');
-
         let embed = new Discord.MessageEmbed();
 
         try {
@@ -41,14 +40,12 @@ module.exports = {
                     if (args[1] === undefined) return message.reply('Usage: \`!stock news <ticker>\`');
                     await axios.get(`https://api.polygon.io/v2/reference/news?ticker=${ticker}&apiKey=${polygon}`)
                         .then(function (response) {
-                            //console.log(response.data.results)
                             const { title, author, published_utc, article_url, image_url, description } = response.data.results[0];
 
                             embed = new Discord.MessageEmbed()
                             .setColor(0x00AE86)
                             .setThumbnail(`${image_url}`)
                             .setTitle(`${title}`)
-                            //.setDescription(`${author}`)
                             .addFields(
                                 { name: 'Author', value: `${author}` },
                                 { name: 'Summary', value: `${description}` },
@@ -64,20 +61,20 @@ module.exports = {
                     const date = args[2];
                     await axios.get(`https://api.polygon.io/v1/open-close/${ticker}/${date}?adjusted=true&apiKey=${polygon}`)
                         .then(function (response) {
-                            const { open, high, low, close, volume, afterHours, preMarket } = response.data;
+                            const { open, high, low, close, afterHours, preMarket } = response.data;
                             embed = new Discord.MessageEmbed()
                             .setColor(0x00AE86)
                             .setTitle(`${ticker}`)
                             .addFields(
-                                { name: 'Pre-Market', value: `${preMarket}`, inline: true },
-                                { name: 'Low', value: `${low}`, inline: true },
-                                { name: 'Close', value: `${close}`, inline: true },
+                                { name: 'Pre-Market', value: `$${preMarket}`, inline: true },
+                                { name: 'Low', value: `$${low}`, inline: true },
+                                { name: 'Open', value: `$${open}`, inline: true },
                             )
                             .addFields(
-                                { name: 'Open', value: `${open}`, inline: true },
-                                { name: 'High', value: `${high}`, inline: true },
-                                { name: 'After-Hours', value: `${afterHours}`, inline: true },
-                            )
+                                { name: 'After-Hours', value: `$${afterHours}`, inline: true },
+                                { name: 'High', value: `$${high}`, inline: true },
+                                { name: 'Close', value: `$${close}`, inline: true },
+                            );
                             message.channel.send(embed);
                         })
                         .catch(function (error) {
