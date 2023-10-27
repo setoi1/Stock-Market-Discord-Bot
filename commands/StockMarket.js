@@ -5,38 +5,42 @@ const { polygon } = require('../config.json');
 module.exports = {
     name: 'stock',
     description: 'stock data',
-    usage: '<ticker> <year-month-date>',
+    usage: '<request-type>',
     args: true,
     guildOnly: true,
     async execute(message, args) {
-        let ticker = args[1];
-        if (args[0] === undefined) return message.reply('Usage: \`!stock <ticker> <news or price> (if price) <YYYY-MM-DD>\`');
+        const ticker = args[1];
+        if (args[0] === undefined) return message.reply('Usage: \`!stock <request-type>\`');
         let embed = new Discord.MessageEmbed();
 
         try {
             switch (args[0]) {
-                /*
-                case 'tickers': // List all Polygon Tickers
-                    await axios.get(`https://api.polygon.io/v3/reference/tickers?market=stocks&exchange=XNYS&active=true&apiKey=${POLYGONAPIKEY}`)
+                case 'details': // Ticker details
+                    if (args[1] === undefined) return message.reply('Usage: \`!stock details <ticker>\`');
+                    await axios.get(`https://api.polygon.io/v3/reference/tickers/${ticker}?apiKey=${polygon}`)
                         .then(function (response) {
-                            const [{ ticker, name, last_updated_utc }] = response;
-                            console.log(response)
+                            const { name, primary_exchange, active, market_cap, phone_number, description, homepage_url, total_employees, list_date, branding } = response.data.results;
+                            const { logo_url } = branding;
 
                             embed = new Discord.MessageEmbed()
                             .setColor(0x00AE86)
-                            .setThumbnail(`${logo}`)
-                            .setTitle(`${ticker}`)
-                            .setDescription(`${name}`)
+                            .setThumbnail(`${logo_url}`)
+                            .setTitle(`${name}`)
                             .addFields(
-                                { name: 'Last updated:', value: `${last_updated_utc}` }
+                                { name: 'Ticker', value: `${ticker}` },
+                                { name: 'Website', value: `${homepage_url}` },
+                                { name: 'Phone', value: `${phone_number}` },
+                                { name: 'Total Employees', value: `${total_employees}` },
+                                { name: 'List Date', value: `${list_date}` },
+                                { name: 'Description', value: `${description}` },
                             );
                             message.channel.send(embed);
                         })
                         .catch(function (error) {
                             console.error(error);
                         });
-                */
-                case 'news': // Ticker News
+                    break;
+                case 'news': // Ticker news
                     if (args[1] === undefined) return message.reply('Usage: \`!stock news <ticker>\`');
                     await axios.get(`https://api.polygon.io/v2/reference/news?ticker=${ticker}&apiKey=${polygon}`)
                         .then(function (response) {
@@ -48,6 +52,7 @@ module.exports = {
                             .setTitle(`${title}`)
                             .addFields(
                                 { name: 'Author', value: `${author}` },
+                                { name: 'Date Published', value: `${published_utc}` },
                                 { name: 'Summary', value: `${description}` },
                                 { name: 'URL', value: `${article_url}` },
                             );
@@ -56,6 +61,7 @@ module.exports = {
                         .catch(function (error) {
                             console.error(error);
                         });
+                    break;
                 case 'price': // Daily Open / Close
                     if (args[2] === undefined) return message.reply('Usage: \`!stock price <ticker> <YYYY-MM-DD>\`');
                     const date = args[2];
@@ -80,6 +86,9 @@ module.exports = {
                         .catch(function (error) {
                             console.error(error);
                         });
+                    break;
+                default:
+                    console.error('Invalid command');
             };
         } catch (error) {
             console.log(error);
